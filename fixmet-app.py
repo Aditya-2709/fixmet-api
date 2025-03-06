@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_secret_key_here')
 app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'your_jwt_secret_key_here')
 db = SQLAlchemy(app)
 jwt = JWTManager(app)
-CORS(app, resources={r"/api/*": {"origins": "https://fixmet.netlify.app"}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # oauth = OAuth(app)
 # google = oauth.remote_app(
@@ -91,8 +91,10 @@ def add_cors_headers(response):
     return response
 
 # Routes
-@app.route('/api/register', methods=['POST'])
+@app.route('/api/register', methods=['POST', 'OPTIONS'])
 def register():
+    if request.method == 'OPTIONS':
+        return '', 200
     data = request.get_json()
     if User.query.filter_by(email=data['email']).first():
         return jsonify({'message': 'User already exists'}), 400
