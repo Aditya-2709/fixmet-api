@@ -1,20 +1,15 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/app.py",
-        "use": "@vercel/python"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "api/app.py"
-      }
-    ],
-    "env": {
-      "DATABASE_URL": "postgresql://user:password@host:port/dbname",
-      "SECRET_KEY": "your_secret_key_here",
-      "JWT_SECRET_KEY": "your_jwt_secret_key_here"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/app.py",
+      "use": "@vercel/python"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "api/app.py"
+    }
+  ]
+}
